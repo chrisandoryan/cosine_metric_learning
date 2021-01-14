@@ -3,13 +3,11 @@ import os
 import numpy as np
 import cv2
 import scipy.io as sio
-
+import random
 
 # The maximum person ID in the dataset.
 MAX_LABEL = 1
-
 IMAGE_SHAPE = 128, 64, 3
-
 
 def _parse_filename(filename):
     """Parse meta-information from given filename.
@@ -33,13 +31,15 @@ def _parse_filename(filename):
 
     """
     filename_base, ext = os.path.splitext(filename)
-    if '.' in filename_base:
-        # Some images have double filename extensions.
-        filename_base, ext = os.path.splitext(filename_base)
+    if ".rf." in filename_base:
+        filename, _ = tuple(filename_base.strip(".rf.").split(".rf."))
+    else:
+        filename = filename_base
+
     if ext != ".jpg":
         return None
-    person_id, cam_seq, frame_idx, detection_idx = filename_base.split('_')
-    return int(person_id), int(cam_seq[1]), filename_base, ext
+
+    return filename, ext
 
 
 def read_train_split_to_str(dataset_dir):
@@ -70,8 +70,8 @@ def read_train_split_to_str(dataset_dir):
             continue
 
         filenames.append(os.path.join(image_dir, filename))
-        ids.append(meta_data[0])
-        camera_indices.append(meta_data[1])
+        ids.append(1)
+        camera_indices.append(1)
 
     return filenames, ids, camera_indices
 

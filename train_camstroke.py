@@ -46,18 +46,17 @@ def main():
     arg_parser = train_app.create_default_argument_parser("camstroke")
     arg_parser.add_argument(
         "--dataset_dir", help="Path to Camstroke dataset directory.",
-        default="resources/Market-1501-v15.09.15")
+        default="resources/camstroke")
     arg_parser.add_argument(
         "--sdk_dir", help="Path to Camstroke baseline evaluation software.",
-        default="resources/Market-1501-v15.09.15-baseline")
+        default="resources/camstroke-baseline")
     args = arg_parser.parse_args()
     dataset = Camstroke(args.dataset_dir, num_validation_y=0.1, seed=1234)
-
     if args.mode == "train":
         train_x, train_y, _ = dataset.read_train()
         print("Train set size: %d images, %d identities" % (
             len(train_x), len(np.unique(train_y))))
-
+        print(args)
         network_factory = net.create_network_factory(
             is_training=True, num_classes=camstroke.MAX_LABEL + 1,
             add_logits=args.loss_mode == "cosine-softmax")

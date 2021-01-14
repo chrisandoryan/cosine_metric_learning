@@ -102,6 +102,10 @@ ENV/
 
 # Training Data
 TextCursorDataset.v2.darknet/
+resources/
 
 # Downloaded
 *.zip
+
+# From VSCode
+.vscode
