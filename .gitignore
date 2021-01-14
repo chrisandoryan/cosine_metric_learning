@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Training Data
+TextCursorDataset.v2.darknet/
+
+# Downloaded
+*.zip
