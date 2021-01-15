@@ -2,8 +2,7 @@
 import argparse
 import numpy as np
 import tensorflow as tf
-import tf_slim as slim
-
+import tensorflow.contrib.slim as slim
 
 from datasets import util
 import queued_trainer
